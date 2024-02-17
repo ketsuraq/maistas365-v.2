@@ -6,8 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 
-def scrape_data():
-    url = 'https://eparduotuve.iki.lt/product/IKI/Arbatinukas-11l'
+def scrape_data(url):
     req = requests.get(url)
     soup = BeautifulSoup(req.content, "html.parser")
 
@@ -18,7 +17,7 @@ def scrape_data():
 
     def get_element_text(driver, xpath):
         try:
-            element = WebDriverWait(driver, 5).until(EC.presence_of_element_located((By.XPATH, xpath)))
+            element = WebDriverWait(driver, 20).until(EC.presence_of_element_located((By.XPATH, xpath)))
             return element.text
         except (TimeoutException, NoSuchElementException):
             return "Not found"
